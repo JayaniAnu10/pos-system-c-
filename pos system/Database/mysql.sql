@@ -15,3 +15,19 @@ CREATE TABLE ProductTable (
 
 );
 Go
+
+CREATE TABLE EmployeeTable (
+    EmployeeId NVARCHAR(10) PRIMARY KEY,
+    EmployeeName NVARCHAR(100),
+    EmployeeNIC NVARCHAR(12),
+    EmployeeTeleNo INT,
+    EmployeeAddress NVARCHAR(50),
+    EmployeeEmail NVARCHAR(50),
+    EmployeeRole NVARCHAR(50),
+    EmployeeGender VARCHAR(10),
+    EmployeePhoto VARBINARY(MAX),
+    EmployeeUserName NVARCHAR(50),
+    EmployeePassword NVARCHAR(50),
+    EmployeeSalary NVARCHAR(20)
+);
+GO
