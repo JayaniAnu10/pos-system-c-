@@ -31,3 +31,34 @@ CREATE TABLE EmployeeTable (
     EmployeeSalary NVARCHAR(20)
 );
 GO
+
+CREATE TABLE Sales (
+    BillNo INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeId NVARCHAR(10),
+    SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Total DECIMAL(10, 2),
+    Discount DECIMAL(10, 2),
+    FOREIGN KEY (EmployeeId) REFERENCES EmployeeTable(EmployeeId)
+);
+
+
+GO
+
+CREATE TABLE Orders (
+    BillNo INT,
+    ProductId VARCHAR(5),
+    Qty INT,
+    PRIMARY KEY (BillNo, ProductId),
+    FOREIGN KEY (BillNo) REFERENCES Sales(BillNo),  
+    FOREIGN KEY (ProductId) REFERENCES ProductTable(ProductId)  
+);
+GO
+
+
+CREATE TABLE Loyality (
+    PhoneNo INT PRIMARY KEY,    
+    Name NVARCHAR(100),         
+    Points INT                  
+);
+
+GO
