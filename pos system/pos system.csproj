@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cashier\CashierLoyality.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cashier\CashierLoyality.Designer.cs">
+      <DependentUpon>CashierLoyality.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cashier\CashierMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +60,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Cashier\CashierLoyality.resx">
+      <DependentUpon>CashierLoyality.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cashier\CashierMain.resx">
       <DependentUpon>CashierMain.cs</DependentUpon>
     </EmbeddedResource>

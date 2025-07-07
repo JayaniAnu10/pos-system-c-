@@ -45,7 +45,17 @@ namespace pos_system.Cashier
             DCV_List1.Rows.Add("P005", "Surf Excel", "320.00");
 
             DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
+            DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
+            DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
+            DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
+            DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
+            DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
+            DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
+            DGV_List2.Rows.Add("1", "p110", "Surf Excel", "320.00", "10", "320.00");
 
+
+            lbl_date.Text =DateTime.Now.ToLongDateString();
+            lbl_time.Text = DateTime.Now.ToLongTimeString();
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -81,6 +91,33 @@ namespace pos_system.Cashier
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lbl_time.Text = DateTime.Now.ToLongTimeString();
+            timer1.Start();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            CashierLoyality loyaltyForm = new CashierLoyality();
+            loyaltyForm.Show();
         }
     }
 }
