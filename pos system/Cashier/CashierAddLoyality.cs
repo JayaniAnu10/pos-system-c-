@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace pos_system.Cashier
 {
-    public partial class CashierLoyality : Form
+    public partial class CashierAddLoyality : Form
     {
-        public CashierLoyality()
+        public CashierAddLoyality()
         {
             InitializeComponent();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

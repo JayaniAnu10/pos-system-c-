@@ -46,11 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cashier\CashierLoyality.cs">
+    <Compile Include="Cashier\CashierAddLoyality.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cashier\CashierLoyality.Designer.cs">
-      <DependentUpon>CashierLoyality.cs</DependentUpon>
+    <Compile Include="Cashier\CashierAddLoyality.Designer.cs">
+      <DependentUpon>CashierAddLoyality.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cashier\CashierCreateLoyality.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cashier\CashierCreateLoyality.Designer.cs">
+      <DependentUpon>CashierCreateLoyality.cs</DependentUpon>
     </Compile>
     <Compile Include="Cashier\CashierMain.cs">
       <SubType>Form</SubType>
@@ -60,8 +66,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Cashier\CashierLoyality.resx">
-      <DependentUpon>CashierLoyality.cs</DependentUpon>
+    <EmbeddedResource Include="Cashier\CashierAddLoyality.resx">
+      <DependentUpon>CashierAddLoyality.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cashier\CashierCreateLoyality.resx">
+      <DependentUpon>CashierCreateLoyality.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cashier\CashierMain.resx">
       <DependentUpon>CashierMain.cs</DependentUpon>
