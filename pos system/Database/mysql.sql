@@ -34,11 +34,11 @@ GO
 
 
 CREATE TABLE Sales (
-    BillNo INT IDENTITY(1,1) PRIMARY KEY,
+    BillNo INT PRIMARY KEY,  
     EmployeeId NVARCHAR(10),
-    SaleDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Total DECIMAL(10, 2),
-    Discount DECIMAL(10, 2),
+    SaleDate DATE DEFAULT CAST(GETDATE() AS DATE),     
+    SaleTime TIME DEFAULT CAST(GETDATE() AS TIME),     
+    Total DECIMAL(10, 2),    
     FOREIGN KEY (EmployeeId) REFERENCES EmployeeTable(EmployeeId)
 );
 
@@ -55,9 +55,8 @@ CREATE TABLE Orders (
 );
 GO
 
-
 CREATE TABLE Loyality (
-    PhoneNo INT PRIMARY KEY,    
+    IdNo VARCHAR(20) PRIMARY KEY,    
     Name NVARCHAR(100),         
     Points INT                  
 );
