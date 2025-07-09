@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 
 
+
 namespace pos_system.Cashier
 {
     public partial class CashierMain : Form
@@ -561,6 +562,8 @@ namespace pos_system.Cashier
         {
 
         }
+
+
     }
 
 

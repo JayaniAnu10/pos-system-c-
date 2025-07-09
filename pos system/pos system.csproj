@@ -33,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,12 +70,6 @@
     <Compile Include="Cashier\CashierMain.Designer.cs">
       <DependentUpon>CashierMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cashier\print.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cashier\print.Designer.cs">
-      <DependentUpon>print.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Cashier\CashierAddLoyality.resx">
@@ -80,9 +80,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cashier\CashierMain.resx">
       <DependentUpon>CashierMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cashier\print.resx">
-      <DependentUpon>print.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
