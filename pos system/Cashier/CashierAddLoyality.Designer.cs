@@ -30,8 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.btn_add_point = new System.Windows.Forms.Button();
+            this.txt_add_point = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
@@ -63,32 +63,33 @@
             this.button1.TabIndex = 27;
             this.button1.Text = "CLEAR";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button4
+            // btn_add_point
             // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Transparent;
-            this.button4.Location = new System.Drawing.Point(446, 199);
-            this.button4.Margin = new System.Windows.Forms.Padding(0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(106, 41);
-            this.button4.TabIndex = 26;
-            this.button4.Text = "ADD";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btn_add_point.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
+            this.btn_add_point.FlatAppearance.BorderColor = System.Drawing.Color.Yellow;
+            this.btn_add_point.FlatAppearance.BorderSize = 0;
+            this.btn_add_point.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_add_point.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_add_point.ForeColor = System.Drawing.Color.Transparent;
+            this.btn_add_point.Location = new System.Drawing.Point(446, 199);
+            this.btn_add_point.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_add_point.Name = "btn_add_point";
+            this.btn_add_point.Size = new System.Drawing.Size(106, 41);
+            this.btn_add_point.TabIndex = 26;
+            this.btn_add_point.Text = "ADD";
+            this.btn_add_point.UseVisualStyleBackColor = false;
+            this.btn_add_point.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBox10
+            // txt_add_point
             // 
-            this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(211, 118);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(341, 22);
-            this.textBox10.TabIndex = 25;
+            this.txt_add_point.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_add_point.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_add_point.Location = new System.Drawing.Point(211, 118);
+            this.txt_add_point.Name = "txt_add_point";
+            this.txt_add_point.Size = new System.Drawing.Size(341, 22);
+            this.txt_add_point.TabIndex = 25;
             // 
             // label9
             // 
@@ -119,8 +120,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(213)))), ((int)(((byte)(178)))));
             this.ClientSize = new System.Drawing.Size(620, 275);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.btn_add_point);
+            this.Controls.Add(this.txt_add_point);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.panel1);
             this.Name = "CashierAddLoyality";
@@ -136,8 +137,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Button btn_add_point;
+        private System.Windows.Forms.TextBox txt_add_point;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel1;
     }

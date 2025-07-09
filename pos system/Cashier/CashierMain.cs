@@ -16,13 +16,64 @@ namespace pos_system.Cashier
     public partial class CashierMain : Form
     {
 
-       
+
+        
 
         public CashierMain()
         {
             InitializeComponent();
             DGV_List1.CellClick += DGV_List1_CellClick;
+            DGV_List2.CellContentClick += DGV_List2_CellContentClick;
+            txt_search.TextChanged += txt_search_TextChanged;
 
+
+
+        }
+
+        private void LoadProductData(string searchText = "")
+        {
+            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+            string query = "SELECT ProductId, ProductName, SellingPrice FROM ProductTable";
+
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                query += " WHERE ProductId LIKE @Search + '%'";
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                    if (!string.IsNullOrWhiteSpace(searchText))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@Search", searchText);
+                    }
+
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    DGV_List1.DataSource = dt;
+
+                    DGV_List1.Columns["ProductId"].HeaderText = "Item Code";
+                    DGV_List1.Columns["ProductName"].HeaderText = "Product Name";
+                    DGV_List1.Columns["SellingPrice"].HeaderText = "Unit Price";
+
+                    DGV_List1.Columns["ProductId"].Width = 150;
+                    DGV_List1.Columns["ProductName"].Width = 245;
+                    DGV_List1.Columns["SellingPrice"].Width = 150;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading product data:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txt_search_TextChanged(object sender, EventArgs e)
+        {
+            string search = txt_search.Text.Trim();
+            LoadProductData(search);  // Filter based on search
         }
 
         private void CashierMain_Load(object sender, EventArgs e)
@@ -32,49 +83,18 @@ namespace pos_system.Cashier
 
             // DATABASE CONNECTION 
 
-            try
-            {
-                
-                string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
-
-                
-                string query = "SELECT ProductId, ProductName, SellingPrice FROM ProductTable";
-
-                
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-
-                    
-                    DGV_List1.DataSource = dt;
-
-                   
-                    DGV_List1.Columns["ProductId"].HeaderText = "Item Code";
-                    DGV_List1.Columns["ProductName"].HeaderText = "Product Name";
-                    DGV_List1.Columns["SellingPrice"].HeaderText = "Unit Price";
-
-                    DGV_List1.Columns["ProductId"].Width = 150;
-                    DGV_List1.Columns["ProductName"].Width = 245;
-                    DGV_List1.Columns["SellingPrice"].Width = 150;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading product data:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-
-
-
-
-            
+            LoadProductData();
+            ResetBill();
            
+ 
 
             lbl_date.Text =DateTime.Now.ToLongDateString();
             lbl_time.Text = DateTime.Now.ToLongTimeString();
+        }
+        public void SetDiscount(decimal discount, decimal net)
+        {
+            txt_discount.Text = discount.ToString("F2");
+            txt_net.Text = net.ToString("F2");
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -237,34 +257,312 @@ namespace pos_system.Cashier
         {
             
         }
+        private void InsertOrderItems(int billNo)
+        {
+            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
 
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    foreach (DataGridViewRow row in DGV_List2.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        string productId = row.Cells["Code"].Value?.ToString();
+                        int qty = Convert.ToInt32(row.Cells["Qty"].Value);
+
+                        string query = "INSERT INTO Orders (BillNo, ProductId, Qty) VALUES (@BillNo, @ProductId, @Qty)";
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@BillNo", billNo);
+                            cmd.Parameters.AddWithValue("@ProductId", productId);
+                            cmd.Parameters.AddWithValue("@Qty", qty);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error inserting orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        //inset sale value
+        private void InsertSalesRecord(int billNo)
+        {
+            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string employeeName = lbl_user.Text.Trim();
+                    decimal total = decimal.Parse(txt_total.Text.Trim());
+                    decimal discount = 0;
+
+                    // Get the EmployeeId based on employee name
+                    string getEmpIdQuery = "SELECT EmployeeId FROM EmployeeTable WHERE EmployeeName = @EmployeeName";
+                    string employeeId = "";
+
+                    using (SqlCommand cmdEmp = new SqlCommand(getEmpIdQuery, conn))
+                    {
+                        cmdEmp.Parameters.AddWithValue("@EmployeeName", employeeName);
+                        object result = cmdEmp.ExecuteScalar();
+                        if (result != null)
+                        {
+                            employeeId = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Employee not found in EmployeeTable!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
+                    // ✅ Insert including BillNo
+                    string insertQuery = @"INSERT INTO Sales (BillNo, EmployeeId, Total)
+                                   VALUES (@BillNo, @EmployeeId, @Total)";
+
+                    using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@BillNo", billNo);
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        cmd.Parameters.AddWithValue("@Total", total);
+                      
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                           
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to add sales record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error inserting Sales: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void updateQty()
+        {
+            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    foreach (DataGridViewRow row in DGV_List2.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        string productId = row.Cells["Code"].Value?.ToString(); // or "ProductId"
+                        int qty = Convert.ToInt32(row.Cells["Qty"].Value);
+
+                        string updateQuery = "UPDATE ProductTable SET Quantity = Quantity - @Qty WHERE ProductId = @ProductId";
+
+                        using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@Qty", qty);
+                            cmd.Parameters.AddWithValue("@ProductId", productId);
+
+                            int affected = cmd.ExecuteNonQuery();
+
+                            if (affected == 0)
+                            {
+                                MessageBox.Show($"Product ID {productId} not found or update failed.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating product quantities:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void btn_done_Click(object sender, EventArgs e)
         {
-            decimal totalAmount = 0;
+            if (DGV_List2.Rows.Count == 0)
+            {
+                MessageBox.Show("No items have been purchased.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            decimal totalAmount = 0;
             foreach (DataGridViewRow row in DGV_List2.Rows)
             {
                 if (!row.IsNewRow && row.Cells["Amount"].Value != null)
                 {
-                    decimal amount = 0;
-
-                    if (decimal.TryParse(row.Cells["Amount"].Value.ToString(), out amount))
+                    if (decimal.TryParse(row.Cells["Amount"].Value.ToString(), out decimal amount))
                     {
                         totalAmount += amount;
                     }
                 }
             }
 
-            // Set total and net
+            updateQty();
+
             txt_total.Text = totalAmount.ToString("0.00");
             txt_net.Text = totalAmount.ToString("0.00");
 
+            if (int.TryParse(lbl_bill.Text, out int billNo))
+            {
+                InsertSalesRecord(billNo);  // 👉 pass the billNo to Sales
+                InsertOrderItems(billNo);   // 👉 same billNo to Orders
+            }
+            else
+            {
+                MessageBox.Show("Invalid Bill Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btn_lo_Click(object sender, EventArgs e)
         {
-            CashierAddLoyality loyaltyForm = new CashierAddLoyality();
-            loyaltyForm.Show();
+
+            if(!string.IsNullOrWhiteSpace(txt_total.Text))
+            {
+                decimal total = Convert.ToDecimal(txt_total.Text);
+                CashierAddLoyality loyaltyForm = new CashierAddLoyality(this,total);
+                loyaltyForm.Show();
+            }
+
+            else
+            {
+                MessageBox.Show("purchase is not completed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+        }
+        private void ClearFormFields()
+        {
+           
+            txt_qty.Text = "";
+            txt_total.Text = "";
+            txt_net.Text = "";
+            txt_cash.Text = "";
+            txt_balance.Text = "";
+            txt_discount.Text = "";
+
+            lbl_qty.Text = "1";
+
+          
+            DGV_List2.Rows.Clear();
+
+            lbl_date.Text = DateTime.Now.ToLongDateString();
+            lbl_time.Text = DateTime.Now.ToLongTimeString();
+        }
+        private void ResetBill()
+        {
+            try
+            {
+                string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    // 🔍 Get latest BillNo
+                    string query = "SELECT ISNULL(MAX(BillNo), 0) FROM Sales";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    int lastBillNo = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // ➕ Add 1 to create new BillNo
+                    int newBillNo = lastBillNo + 1;
+
+                    // 🔄 Refresh form controls
+                    ClearFormFields(); // call method to reset UI
+                    lbl_bill.Text = newBillNo.ToString(); // show new BillNo
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error generating new BillNo:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /////////////////////////////
+        private void ptn_print_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txt_balance.Text))
+            {
+
+                ResetBill();
+
+
+
+            }
+
+            else
+            {
+                MessageBox.Show("Bill is not completed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_cash_TextChanged_1(object sender, EventArgs e)
+        {
+            //this.txt_cash.TextChanged += new System.EventHandler(this.txt_cash_TextChanged);
+
+            decimal cash, NET;
+
+            // Parse total
+            if (!decimal.TryParse(txt_net.Text.Trim(), out NET))
+            {
+                txt_balance.Text = "";
+                return;
+            }
+
+            // Parse cash
+            if (!decimal.TryParse(txt_cash.Text.Trim(), out cash))
+            {
+                txt_balance.Text = "";
+                return;
+            }
+
+            // Calculate balance
+            decimal balance = cash - NET;
+            txt_balance.Text = balance.ToString("0.00");
+        }
+
+        private void DGV_List2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Make sure the click is not on the header row and is on the correct column
+            if (e.RowIndex >= 0 && DGV_List2.Columns[e.ColumnIndex].Name == "btnDelete")
+            {
+                DialogResult confirm = MessageBox.Show("Delete this item?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirm == DialogResult.Yes)
+                {
+                    DGV_List2.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+        }
+            private void DGV_List2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
+
+
 }
+
