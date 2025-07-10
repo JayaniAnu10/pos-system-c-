@@ -27,11 +27,14 @@ namespace pos_system.Production
 
         }
 
+
         private void Add_product_Load(object sender, EventArgs e)
         {
             cmbStatus.Items.Clear();
             cmbStatus.Items.Add("Available");
-            cmbStatus.Items.Add("Sold out");
+            cmbStatus.Items.Add("Out of Stock");
+            cmbStatus.Items.Add("Discontinued");
+
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.SelectedIndex = 0; // Set default selection
 
