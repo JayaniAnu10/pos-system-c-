@@ -17,7 +17,7 @@ namespace pos_system
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new EmployeeDetails());
+            Application.Run(new Form1());
         }
     }
 }

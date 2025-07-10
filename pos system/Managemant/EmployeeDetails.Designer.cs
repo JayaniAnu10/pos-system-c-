@@ -29,16 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.titlelabel = new System.Windows.Forms.Label();
             this.importimgbox = new System.Windows.Forms.PictureBox();
             this.detailpanel = new System.Windows.Forms.Panel();
+            this.btnupdate = new System.Windows.Forms.Button();
+            this.gendertxt = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.salarytxt = new System.Windows.Forms.TextBox();
             this.salarylabel = new System.Windows.Forms.Label();
             this.importimgbtn = new System.Windows.Forms.Button();
             this.passwordtxt = new System.Windows.Forms.TextBox();
+            this.jobtxt = new System.Windows.Forms.TextBox();
             this.usernametxt = new System.Windows.Forms.TextBox();
             this.emailtxt = new System.Windows.Forms.TextBox();
             this.addresstxt = new System.Windows.Forms.TextBox();
@@ -57,13 +62,15 @@
             this.emaillabel = new System.Windows.Forms.Label();
             this.joblabel = new System.Windows.Forms.Label();
             this.idlabel = new System.Windows.Forms.Label();
-            this.addbtn = new System.Windows.Forms.Button();
-            this.clearbtn = new System.Windows.Forms.Button();
-            this.displaybtn = new System.Windows.Forms.Button();
-            this.updatebtn = new System.Windows.Forms.Button();
-            this.deletebtn = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataviewbox = new System.Windows.Forms.DataGridView();
+            this.employeeTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pOSDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pOSDataSet = new pos_system.POSDataSet();
+            this.employeeTableTableAdapter = new pos_system.POSDataSetTableAdapters.EmployeeTableTableAdapter();
+            this.btnadd = new System.Windows.Forms.Button();
+            this.btndelete = new System.Windows.Forms.Button();
+            this.btnclear = new System.Windows.Forms.Button();
             this.employeeIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeeNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeeNICDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,12 +83,6 @@
             this.employeeUserNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeePasswordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeeSalaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pOSDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pOSDataSet = new pos_system.POSDataSet();
-            this.employeeTableTableAdapter = new pos_system.POSDataSetTableAdapters.EmployeeTableTableAdapter();
-            this.jobtxt = new System.Windows.Forms.TextBox();
-            this.gendertxt = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.importimgbox)).BeginInit();
             this.detailpanel.SuspendLayout();
@@ -141,6 +142,10 @@
             // detailpanel
             // 
             this.detailpanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
+            this.detailpanel.Controls.Add(this.btnclear);
+            this.detailpanel.Controls.Add(this.btndelete);
+            this.detailpanel.Controls.Add(this.btnadd);
+            this.detailpanel.Controls.Add(this.btnupdate);
             this.detailpanel.Controls.Add(this.gendertxt);
             this.detailpanel.Controls.Add(this.pictureBox1);
             this.detailpanel.Controls.Add(this.salarytxt);
@@ -166,16 +171,39 @@
             this.detailpanel.Controls.Add(this.emaillabel);
             this.detailpanel.Controls.Add(this.joblabel);
             this.detailpanel.Controls.Add(this.idlabel);
-            this.detailpanel.Controls.Add(this.addbtn);
-            this.detailpanel.Controls.Add(this.clearbtn);
-            this.detailpanel.Controls.Add(this.displaybtn);
-            this.detailpanel.Controls.Add(this.updatebtn);
-            this.detailpanel.Controls.Add(this.deletebtn);
             this.detailpanel.Location = new System.Drawing.Point(99, 86);
             this.detailpanel.Name = "detailpanel";
             this.detailpanel.Size = new System.Drawing.Size(1500, 507);
             this.detailpanel.TabIndex = 6;
             this.detailpanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
+            // 
+            // btnupdate
+            // 
+            this.btnupdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
+            this.btnupdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnupdate.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
+            this.btnupdate.FlatAppearance.BorderSize = 3;
+            this.btnupdate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
+            this.btnupdate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
+            this.btnupdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnupdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnupdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
+            this.btnupdate.Location = new System.Drawing.Point(808, 421);
+            this.btnupdate.Name = "btnupdate";
+            this.btnupdate.Size = new System.Drawing.Size(212, 58);
+            this.btnupdate.TabIndex = 33;
+            this.btnupdate.Text = "UPDATE";
+            this.btnupdate.UseVisualStyleBackColor = false;
+            this.btnupdate.Click += new System.EventHandler(this.btnupdate_Click);
+            // 
+            // gendertxt
+            // 
+            this.gendertxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
+            this.gendertxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gendertxt.Location = new System.Drawing.Point(377, 293);
+            this.gendertxt.Name = "gendertxt";
+            this.gendertxt.Size = new System.Drawing.Size(386, 34);
+            this.gendertxt.TabIndex = 32;
             // 
             // pictureBox1
             // 
@@ -229,6 +257,15 @@
             this.passwordtxt.Name = "passwordtxt";
             this.passwordtxt.Size = new System.Drawing.Size(386, 34);
             this.passwordtxt.TabIndex = 27;
+            // 
+            // jobtxt
+            // 
+            this.jobtxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
+            this.jobtxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.jobtxt.Location = new System.Drawing.Point(377, 333);
+            this.jobtxt.Name = "jobtxt";
+            this.jobtxt.Size = new System.Drawing.Size(386, 34);
+            this.jobtxt.TabIndex = 26;
             // 
             // usernametxt
             // 
@@ -431,101 +468,6 @@
             this.idlabel.Text = "Employee ID";
             this.idlabel.Click += new System.EventHandler(this.label2_Click);
             // 
-            // addbtn
-            // 
-            this.addbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
-            this.addbtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.addbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
-            this.addbtn.FlatAppearance.BorderSize = 3;
-            this.addbtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
-            this.addbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
-            this.addbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addbtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
-            this.addbtn.Location = new System.Drawing.Point(167, 421);
-            this.addbtn.Name = "addbtn";
-            this.addbtn.Size = new System.Drawing.Size(212, 58);
-            this.addbtn.TabIndex = 1;
-            this.addbtn.Text = "ADD";
-            this.addbtn.UseVisualStyleBackColor = false;
-            this.addbtn.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // clearbtn
-            // 
-            this.clearbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
-            this.clearbtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.clearbtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
-            this.clearbtn.FlatAppearance.BorderSize = 3;
-            this.clearbtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
-            this.clearbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
-            this.clearbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.clearbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearbtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
-            this.clearbtn.Location = new System.Drawing.Point(1124, 421);
-            this.clearbtn.Name = "clearbtn";
-            this.clearbtn.Size = new System.Drawing.Size(212, 58);
-            this.clearbtn.TabIndex = 3;
-            this.clearbtn.Text = "CLEAR";
-            this.clearbtn.UseVisualStyleBackColor = false;
-            this.clearbtn.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // displaybtn
-            // 
-            this.displaybtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
-            this.displaybtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.displaybtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
-            this.displaybtn.FlatAppearance.BorderSize = 3;
-            this.displaybtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
-            this.displaybtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
-            this.displaybtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.displaybtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.displaybtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
-            this.displaybtn.Location = new System.Drawing.Point(881, 421);
-            this.displaybtn.Name = "displaybtn";
-            this.displaybtn.Size = new System.Drawing.Size(212, 58);
-            this.displaybtn.TabIndex = 4;
-            this.displaybtn.Text = "DISPLAY";
-            this.displaybtn.UseVisualStyleBackColor = false;
-            this.displaybtn.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // updatebtn
-            // 
-            this.updatebtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
-            this.updatebtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.updatebtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
-            this.updatebtn.FlatAppearance.BorderSize = 3;
-            this.updatebtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
-            this.updatebtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
-            this.updatebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updatebtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.updatebtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
-            this.updatebtn.Location = new System.Drawing.Point(636, 421);
-            this.updatebtn.Name = "updatebtn";
-            this.updatebtn.Size = new System.Drawing.Size(212, 58);
-            this.updatebtn.TabIndex = 5;
-            this.updatebtn.Text = "UPDATE";
-            this.updatebtn.UseVisualStyleBackColor = false;
-            this.updatebtn.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // deletebtn
-            // 
-            this.deletebtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
-            this.deletebtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.deletebtn.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
-            this.deletebtn.FlatAppearance.BorderSize = 3;
-            this.deletebtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
-            this.deletebtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
-            this.deletebtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deletebtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deletebtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
-            this.deletebtn.Location = new System.Drawing.Point(400, 421);
-            this.deletebtn.Name = "deletebtn";
-            this.deletebtn.Size = new System.Drawing.Size(212, 58);
-            this.deletebtn.TabIndex = 2;
-            this.deletebtn.Text = "DELETE";
-            this.deletebtn.UseVisualStyleBackColor = false;
-            this.deletebtn.Click += new System.EventHandler(this.button2_Click);
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
@@ -544,7 +486,7 @@
             this.dataviewbox.AutoGenerateColumns = false;
             this.dataviewbox.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataviewbox.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(213)))), ((int)(((byte)(178)))));
-            this.dataviewbox.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataviewbox.ColumnHeadersHeight = 35;
             this.dataviewbox.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.employeeIdDataGridViewTextBoxColumn,
             this.employeeNameDataGridViewTextBoxColumn,
@@ -558,14 +500,108 @@
             this.employeeUserNameDataGridViewTextBoxColumn,
             this.employeePasswordDataGridViewTextBoxColumn,
             this.employeeSalaryDataGridViewTextBoxColumn});
+            this.dataviewbox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dataviewbox.DataSource = this.employeeTableBindingSource;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(67)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataviewbox.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataviewbox.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
             this.dataviewbox.Location = new System.Drawing.Point(99, 633);
             this.dataviewbox.Name = "dataviewbox";
-            this.dataviewbox.RowHeadersWidth = 51;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(67)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataviewbox.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataviewbox.RowHeadersWidth = 70;
+            this.dataviewbox.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataviewbox.RowTemplate.Height = 24;
             this.dataviewbox.Size = new System.Drawing.Size(1500, 324);
             this.dataviewbox.TabIndex = 7;
+            // 
+            // employeeTableBindingSource
+            // 
+            this.employeeTableBindingSource.DataMember = "EmployeeTable";
+            this.employeeTableBindingSource.DataSource = this.pOSDataSetBindingSource;
+            // 
+            // pOSDataSetBindingSource
+            // 
+            this.pOSDataSetBindingSource.DataSource = this.pOSDataSet;
+            this.pOSDataSetBindingSource.Position = 0;
+            // 
+            // pOSDataSet
+            // 
+            this.pOSDataSet.DataSetName = "POSDataSet";
+            this.pOSDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // employeeTableTableAdapter
+            // 
+            this.employeeTableTableAdapter.ClearBeforeFill = true;
+            // 
+            // btnadd
+            // 
+            this.btnadd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
+            this.btnadd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnadd.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
+            this.btnadd.FlatAppearance.BorderSize = 3;
+            this.btnadd.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
+            this.btnadd.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
+            this.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnadd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnadd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
+            this.btnadd.Location = new System.Drawing.Point(172, 421);
+            this.btnadd.Name = "btnadd";
+            this.btnadd.Size = new System.Drawing.Size(212, 58);
+            this.btnadd.TabIndex = 34;
+            this.btnadd.Text = "ADD";
+            this.btnadd.UseVisualStyleBackColor = false;
+            this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
+            // 
+            // btndelete
+            // 
+            this.btndelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
+            this.btndelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btndelete.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
+            this.btndelete.FlatAppearance.BorderSize = 3;
+            this.btndelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
+            this.btndelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
+            this.btndelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btndelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btndelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
+            this.btndelete.Location = new System.Drawing.Point(500, 421);
+            this.btndelete.Name = "btndelete";
+            this.btndelete.Size = new System.Drawing.Size(212, 58);
+            this.btndelete.TabIndex = 35;
+            this.btndelete.Text = "DELETE";
+            this.btndelete.UseVisualStyleBackColor = false;
+            this.btndelete.Click += new System.EventHandler(this.btndelete_Click);
+            // 
+            // btnclear
+            // 
+            this.btnclear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(28)))), ((int)(((byte)(21)))));
+            this.btnclear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnclear.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
+            this.btnclear.FlatAppearance.BorderSize = 3;
+            this.btnclear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(228)))), ((int)(((byte)(199)))));
+            this.btnclear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(183)))), ((int)(((byte)(136)))));
+            this.btnclear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnclear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnclear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
+            this.btnclear.Location = new System.Drawing.Point(1115, 421);
+            this.btnclear.Name = "btnclear";
+            this.btnclear.Size = new System.Drawing.Size(212, 58);
+            this.btnclear.TabIndex = 36;
+            this.btnclear.Text = "CLEAR";
+            this.btnclear.UseVisualStyleBackColor = false;
+            this.btnclear.Click += new System.EventHandler(this.btnclear_Click);
             // 
             // employeeIdDataGridViewTextBoxColumn
             // 
@@ -601,7 +637,6 @@
             this.employeeAddressDataGridViewTextBoxColumn.HeaderText = "EmployeeAddress";
             this.employeeAddressDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.employeeAddressDataGridViewTextBoxColumn.Name = "employeeAddressDataGridViewTextBoxColumn";
-            this.employeeAddressDataGridViewTextBoxColumn.Visible = false;
             // 
             // employeeEmailDataGridViewTextBoxColumn
             // 
@@ -623,7 +658,6 @@
             this.employeeGenderDataGridViewTextBoxColumn.HeaderText = "EmployeeGender";
             this.employeeGenderDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.employeeGenderDataGridViewTextBoxColumn.Name = "employeeGenderDataGridViewTextBoxColumn";
-            this.employeeGenderDataGridViewTextBoxColumn.Visible = false;
             // 
             // employeePhotoDataGridViewImageColumn
             // 
@@ -653,43 +687,6 @@
             this.employeeSalaryDataGridViewTextBoxColumn.HeaderText = "EmployeeSalary";
             this.employeeSalaryDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.employeeSalaryDataGridViewTextBoxColumn.Name = "employeeSalaryDataGridViewTextBoxColumn";
-            // 
-            // employeeTableBindingSource
-            // 
-            this.employeeTableBindingSource.DataMember = "EmployeeTable";
-            this.employeeTableBindingSource.DataSource = this.pOSDataSetBindingSource;
-            // 
-            // pOSDataSetBindingSource
-            // 
-            this.pOSDataSetBindingSource.DataSource = this.pOSDataSet;
-            this.pOSDataSetBindingSource.Position = 0;
-            // 
-            // pOSDataSet
-            // 
-            this.pOSDataSet.DataSetName = "POSDataSet";
-            this.pOSDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // employeeTableTableAdapter
-            // 
-            this.employeeTableTableAdapter.ClearBeforeFill = true;
-            // 
-            // jobtxt
-            // 
-            this.jobtxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
-            this.jobtxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.jobtxt.Location = new System.Drawing.Point(377, 333);
-            this.jobtxt.Name = "jobtxt";
-            this.jobtxt.Size = new System.Drawing.Size(386, 34);
-            this.jobtxt.TabIndex = 26;
-            // 
-            // gendertxt
-            // 
-            this.gendertxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(243)))), ((int)(((byte)(220)))));
-            this.gendertxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gendertxt.Location = new System.Drawing.Point(377, 293);
-            this.gendertxt.Name = "gendertxt";
-            this.gendertxt.Size = new System.Drawing.Size(386, 34);
-            this.gendertxt.TabIndex = 32;
             // 
             // EmployeeDetails
             // 
@@ -731,11 +728,6 @@
         private System.Windows.Forms.Label emaillabel;
         private System.Windows.Forms.Label joblabel;
         private System.Windows.Forms.Label idlabel;
-        private System.Windows.Forms.Button addbtn;
-        private System.Windows.Forms.Button clearbtn;
-        private System.Windows.Forms.Button displaybtn;
-        private System.Windows.Forms.Button updatebtn;
-        private System.Windows.Forms.Button deletebtn;
         private System.Windows.Forms.Label genderlabel;
         private System.Windows.Forms.Label photolabel;
         private System.Windows.Forms.Label usernamelabel;
@@ -758,6 +750,13 @@
         private POSDataSet pOSDataSet;
         private System.Windows.Forms.BindingSource employeeTableBindingSource;
         private POSDataSetTableAdapters.EmployeeTableTableAdapter employeeTableTableAdapter;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox gendertxt;
+        private System.Windows.Forms.TextBox jobtxt;
+        private System.Windows.Forms.Button btnupdate;
+        private System.Windows.Forms.Button btnadd;
+        private System.Windows.Forms.Button btndelete;
+        private System.Windows.Forms.Button btnclear;
         private System.Windows.Forms.DataGridViewTextBoxColumn employeeIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn employeeNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn employeeNICDataGridViewTextBoxColumn;
@@ -770,8 +769,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn employeeUserNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn employeePasswordDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn employeeSalaryDataGridViewTextBoxColumn;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox gendertxt;
-        private System.Windows.Forms.TextBox jobtxt;
     }
 }
