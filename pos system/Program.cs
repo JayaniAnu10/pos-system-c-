@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 ﻿using System;
+=======
+﻿using pos_system.Managemant;
+using pos_system.Report;
+using System;
+>>>>>>> Stashed changes
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +22,7 @@ namespace pos_system
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new report());
         }
     }
 }
