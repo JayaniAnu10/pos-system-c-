@@ -138,7 +138,11 @@ namespace pos_system.Managemant
         private void EmployeeDetails_Load(object sender, EventArgs e)      
         {
 
+
            string connectionString = @"Data Source=LAPTOP-B94JMQT4\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+
+           string connectionString = @"Data Source=DESKTOP-3UCJTDT\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+
 
 
             try
@@ -183,7 +187,11 @@ namespace pos_system.Managemant
         {
             try
             {
-                string connectionString = @"Data Source=LAPTOP-B94JMQT4\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+
+                string connectionString = @"Data Source=;Initial Catalog=POS;Integrated Security=True";
+
+                string connectionString = @"Data Source=;Initial Catalog=POS;Integrated Security=True";
+
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -262,7 +270,11 @@ namespace pos_system.Managemant
         {
             try
             {
-                string connectionString = @"Data Source=LAPTOP-B94JMQT4\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+
+                string connectionString = @";Initial Catalog=POS;Integrated Security=True";
+
+                string connectionString = @";Initial Catalog=POS;Integrated Security=True";
+
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -336,7 +348,11 @@ namespace pos_system.Managemant
         {
             try
             {
-                string connectionString = @"Data Source=LAPTOP-B94JMQT4\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+
+                string connectionString = @";Initial Catalog=POS;Integrated Security=True";
+
+                string connectionString = @";Initial Catalog=POS;Integrated Security=True";
+
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -386,6 +402,9 @@ namespace pos_system.Managemant
         private void LoadEmployeeImage(string empId)
         {
             string connectionString = @"Data Source=LAPTOP-B94JMQT4\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+
+            string connectionString = @"Data Source=DESKTOP-3UCJTDT\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+
 
             try
             {
@@ -449,9 +468,9 @@ namespace pos_system.Managemant
             }
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
+       
+
+
     }
 }

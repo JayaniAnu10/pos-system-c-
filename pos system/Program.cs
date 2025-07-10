@@ -1,10 +1,14 @@
-<<<<<<< Updated upstream
+
 ﻿using System;
-=======
+
 ﻿using pos_system.Managemant;
 using pos_system.Report;
 using System;
->>>>>>> Stashed changes
+
+
+﻿using pos_system.Managemant;
+using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
