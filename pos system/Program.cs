@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using pos_system.Production;
 
 namespace pos_system
 {
@@ -17,7 +18,7 @@ namespace pos_system
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Dash_Production());
         }
     }
 }
