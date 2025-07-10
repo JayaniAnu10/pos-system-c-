@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.Configuration;
 
 namespace pos_system.Cashier
 {
@@ -24,7 +25,7 @@ namespace pos_system.Cashier
 
         {
 
-            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

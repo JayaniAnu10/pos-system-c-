@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Data.SqlTypes;
 
 namespace pos_system.Cashier
 {
@@ -32,7 +34,7 @@ namespace pos_system.Cashier
         private void button4_Click(object sender, EventArgs e)
         {
 
-            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
             string IdNo = txt_add_point.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(IdNo))

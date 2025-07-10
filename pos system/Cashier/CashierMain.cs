@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Configuration;
+using System.Data.SqlTypes;
 
 
 
@@ -23,9 +25,12 @@ namespace pos_system.Cashier
         public CashierMain()
         {
             InitializeComponent();
-            DGV_List1.CellClick += DGV_List1_CellClick;
-            DGV_List2.CellContentClick += DGV_List2_CellContentClick;
-            txt_search.TextChanged += txt_search_TextChanged;
+            if (!DesignMode)
+            {
+                DGV_List1.CellClick += DGV_List1_CellClick;
+                DGV_List2.CellContentClick += DGV_List2_CellContentClick;
+                txt_search.TextChanged += txt_search_TextChanged;
+            }
 
 
 
@@ -33,7 +38,10 @@ namespace pos_system.Cashier
 
         private void LoadProductData(string searchText = "")
         {
-            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+           
+
+            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+
             string query = "SELECT ProductId, ProductName, SellingPrice FROM ProductTable";
 
             if (!string.IsNullOrWhiteSpace(searchText))
@@ -83,7 +91,7 @@ namespace pos_system.Cashier
 
 
             // DATABASE CONNECTION 
-
+            if (DesignMode) return;
             LoadProductData();
             ResetBill();
            
@@ -260,7 +268,7 @@ namespace pos_system.Cashier
         }
         private void InsertOrderItems(int billNo)
         {
-            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -297,7 +305,7 @@ namespace pos_system.Cashier
         //inset sale value
         private void InsertSalesRecord(int billNo)
         {
-            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
 
             try
             {
@@ -360,7 +368,7 @@ namespace pos_system.Cashier
 
         private void updateQty()
         {
-            string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
 
             try
             {
@@ -435,6 +443,9 @@ namespace pos_system.Cashier
             }
         }
 
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
         private void btn_lo_Click(object sender, EventArgs e)
         {
 
@@ -473,7 +484,7 @@ namespace pos_system.Cashier
         {
             try
             {
-                string connectionString = @"Data Source=LAPTOP-7EH2LIKF\SQLEXPRESS01;Initial Catalog=POS;Integrated Security=True;";
+                string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -497,8 +508,7 @@ namespace pos_system.Cashier
                 MessageBox.Show("Error generating new BillNo:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        /////////////////////////////
+       
         private void ptn_print_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txt_balance.Text))
