@@ -1,5 +1,14 @@
+
+﻿using System;
+
+﻿using pos_system.Managemant;
+using pos_system.Report;
+using System;
+
+
 ﻿using pos_system.Managemant;
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +26,11 @@ namespace pos_system
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+ Dasuni1
             Application.Run(new EmployeeDetails());
+
+            Application.Run(new report());
+ master
         }
     }
 }
