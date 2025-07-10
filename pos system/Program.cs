@@ -18,7 +18,7 @@ namespace pos_system
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Dash_Production());
+            Application.Run(new Form1());
         }
     }
 }
