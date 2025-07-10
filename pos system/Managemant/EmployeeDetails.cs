@@ -17,12 +17,12 @@ namespace pos_system.Managemant
 {
     public partial class EmployeeDetails : Form
     {
-      
-       
-        
-        private string connectionString;
 
-       
+
+
+        private string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+
+
 
         public EmployeeDetails()
         {
@@ -138,7 +138,7 @@ namespace pos_system.Managemant
         private void EmployeeDetails_Load(object sender, EventArgs e)      
         {
 
-           string connectionString = @"Data Source=DESKTOP-3UCJTDT\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+           
 
 
             try
@@ -183,7 +183,7 @@ namespace pos_system.Managemant
         {
             try
             {
-                string connectionString = @"Data Source=DESKTOP-3UCJTDT\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+                
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -262,7 +262,7 @@ namespace pos_system.Managemant
         {
             try
             {
-                string connectionString = @"Data Source=DESKTOP-3UCJTDT\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+                
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -336,7 +336,7 @@ namespace pos_system.Managemant
         {
             try
             {
-                string connectionString = @"Data Source=DESKTOP-3UCJTDT\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+                
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
@@ -385,7 +385,7 @@ namespace pos_system.Managemant
 
         private void LoadEmployeeImage(string empId)
         {
-            string connectionString = @"Data Source=DESKTOP-3UCJTDT\SQLEXPRESS;Initial Catalog=POS;Integrated Security=True";
+           
 
             try
             {
