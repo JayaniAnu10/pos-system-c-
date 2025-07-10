@@ -26,7 +26,11 @@ namespace pos_system
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+ Dasuni1
+            Application.Run(new EmployeeDetails());
+
             Application.Run(new report());
+ master
         }
     }
 }
