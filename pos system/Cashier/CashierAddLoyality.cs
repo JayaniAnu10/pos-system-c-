@@ -34,7 +34,7 @@ namespace pos_system.Cashier
         private void button4_Click(object sender, EventArgs e)
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
             string IdNo = txt_add_point.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(IdNo))

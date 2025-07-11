@@ -25,7 +25,7 @@ namespace pos_system.Cashier
 
         {
 
-            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

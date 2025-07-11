@@ -40,7 +40,7 @@ namespace pos_system.Cashier
         {
            
 
-            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 
             string query = "SELECT ProductId, ProductName, SellingPrice FROM ProductTable";
 
@@ -268,7 +268,7 @@ namespace pos_system.Cashier
         }
         private void InsertOrderItems(int billNo)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -305,7 +305,7 @@ namespace pos_system.Cashier
         //inset sale value
         private void InsertSalesRecord(int billNo)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 
             try
             {
@@ -368,7 +368,7 @@ namespace pos_system.Cashier
 
         private void updateQty()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 
             try
             {
@@ -484,7 +484,7 @@ namespace pos_system.Cashier
         {
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["POSConnection"].ConnectionString;
+                string connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
